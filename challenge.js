@@ -1,17 +1,20 @@
-// some code to change innerHTML = counter for each interval
-
-
 let counter = 0
 const likeTracker = {}
+let pause = true
 
 const setTime = function () {
-  counter += 1
-  document.querySelector("#counter").innerText = counter
+  if (pause == false) {
+    counter += 1
+    document.querySelector("#counter").innerText = counter
+  } else {
+    counter += 0
+    document.querySelector("#counter").innerText = counter
+  }
 }
 
-document.addEventListener('DOMContentLoaded', function (event) {
-    setInterval(setTime, 1000)
-    console.log('DOM fully loaded and parsed');
+ document.addEventListener('DOMContentLoaded', function (event) {
+    pause = false
+    setInterval(setTime, 1000);
 });
 
 
@@ -31,44 +34,45 @@ const buttonLOVE = document.getElementById("<3")
 
 
 
-function countInArray(arrayofCountersLikes) {
-
-    let n = 0;
-    for (let i = 0; i < arrayofCountersLikes.length; i++) {
-        if (array[i] === counter) {
-            n++;
-        }
-    }
-    return n;
-}
-
-
-const createli = function () {
-
-  let ul = document.querySelector("ul");
+ const createli = function () {
+   let ul = document.querySelector("ul");
   let li = document.createElement("li");
    li.appendChild(document.createTextNode(`${counter} has been liked ${likeTracker[counter]} times`));
-   ul.appendChild(li);
+   ul.appendChild(li)
 }
 
-buttonLOVE.addEventListener('click', function (event) {
+ buttonLOVE.addEventListener('click', function (event) {
   likeTracker
     updatelikeTracker()
-
-      createli()
+    createli()
       // iterate over ul and count unique numbers
     })
 
 
-
-const updatelikeTracker = function() {
+ const updatelikeTracker = function() {
   arr = Object.keys(likeTracker)
-
-  if (Object.keys(likeTracker).length === 0){
+   if (Object.keys(likeTracker)){
     likeTracker[counter] = 1
-  }else if (arr.includes(counter)) {
-    (likeTracker[counter] + 1) 
   }else {
-    likeTracker[counter] = 1
+    likeTracker[counter] = likeTracker[counter] + 1 || 1
   }
 }
+
+
+let pauseBtn = document.getElementById("pause")
+pauseBtn.addEventListener("click", event =>{
+  pause = !pause
+});
+
+
+let commentlist = document.getElementById('list')
+let comment = document.getElementById('comment-form')
+let input = document.getElementById('input')
+
+comment.addEventListener('submit', event => {
+  event.preventDefault();
+  ptag = document.createElement("p")
+  ptag.innerText = input.value
+  commentlist.appendChild(ptag)
+
+})
