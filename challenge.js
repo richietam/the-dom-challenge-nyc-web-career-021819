@@ -21,42 +21,35 @@ const setTime = function () {
 const buttonMinus = document.getElementById("-")
 const buttonPlus = document.getElementById("+")
 
-buttonMinus.addEventListener('click', function (event) {
-    counter -= 1
-  })
+buttonMinus.addEventListener('click',(event) => counter--)
 
-buttonPlus.addEventListener('click', function (event) {
-      counter += 1
-    })
+buttonPlus.addEventListener('click', (event) => counter++)
 
 
 const buttonLOVE = document.getElementById("<3")
 
+const updatelikeTracker = function() {
+  let key = counter
+  if (likeTracker[key]){
+    likeTracker[key] += 1 } else {
+    likeTracker[key] = 1
+  }
+}
 
-
- const createli = function () {
-   let ul = document.querySelector("ul");
+const createli = function () {
+  let ul = document.querySelector("ul");
   let li = document.createElement("li");
-   li.appendChild(document.createTextNode(`${counter} has been liked ${likeTracker[counter]} times`));
-   ul.appendChild(li)
+  li.appendChild(document.createTextNode(`${counter} has been liked ${likeTracker[counter]} times`));
+  ul.appendChild(li)
 }
 
  buttonLOVE.addEventListener('click', function (event) {
-  likeTracker
     updatelikeTracker()
+    // debugger
     createli()
-      // iterate over ul and count unique numbers
-    })
+  })
 
 
- const updatelikeTracker = function() {
-  arr = Object.keys(likeTracker)
-   if (Object.keys(likeTracker)){
-    likeTracker[counter] = 1
-  }else {
-    likeTracker[counter] = likeTracker[counter] + 1 || 1
-  }
-}
 
 
 let pauseBtn = document.getElementById("pause")
@@ -74,5 +67,5 @@ comment.addEventListener('submit', event => {
   ptag = document.createElement("p")
   ptag.innerText = input.value
   commentlist.appendChild(ptag)
-
+  event.target.reset();
 })
